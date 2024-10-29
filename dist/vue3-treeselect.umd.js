@@ -4789,7 +4789,7 @@ var instanceId = 0;
     /**
      * Will be passed with all events as the last param.
      * Useful for identifying events origin.
-    */
+     */
     instanceId: {
       // Add two trailing "$" to distinguish from explictly specified ids.
       default: function _default() {
@@ -4800,7 +4800,7 @@ var instanceId = 0;
 
     /**
      * Joins multiple values into a single form field with the `delimiter` (legacy mode).
-    */
+     */
     joinValues: {
       type: Boolean,
       default: false
@@ -5346,6 +5346,11 @@ var instanceId = 0;
       this.$emit('search-change', this.trigger.searchQuery, this.getInstanceId());
     },
     value: function value() {
+      var nodeIdsFromValue = this.extractCheckedNodeIdsFromValue();
+      var hasChanged = quickDiff(nodeIdsFromValue, this.internalValue);
+      if (hasChanged) this.fixSelectedNodeIds(nodeIdsFromValue);
+    },
+    modelValue: function modelValue() {
       var nodeIdsFromValue = this.extractCheckedNodeIdsFromValue();
       var hasChanged = quickDiff(nodeIdsFromValue, this.internalValue);
       if (hasChanged) this.fixSelectedNodeIds(nodeIdsFromValue);
